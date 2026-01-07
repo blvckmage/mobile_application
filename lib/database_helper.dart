@@ -50,7 +50,7 @@ class DatabaseHelper {
     ''');
   }
 
-  // Регистрация пользователя
+  // Пайдаланушыны тіркеу
   Future<bool> registerUser({
     required String username,
     required String email,
@@ -78,12 +78,12 @@ class DatabaseHelper {
       });
       return true;
     } catch (e) {
-      print('Ошибка регистрации: $e');
+      print('Тіркеу қатесі: $e');
       return false;
     }
   }
 
-  // Вход пользователя
+  // Пайдаланушы кіру
   Future<Map<String, dynamic>?> loginUser({
     required String username,
     required String password,
@@ -102,34 +102,34 @@ class DatabaseHelper {
       }
       return null;
     } catch (e) {
-      print('Ошибка входа: $e');
+      print('Кіру қатесі: $e');
       return null;
     }
   }
 
-  // Получить всех пользователей
+  // Барлық пайдаланушыларды алу
   Future<List<Map<String, dynamic>>> getUsers() async {
     final db = await database;
     return await db.query('users');
   }
 
-  // Получить всех учеников (role = 'Ученик')
+  // Барлық оқушыларды алу (role = 'Оқушы')
   Future<List<Map<String, dynamic>>> getStudents() async {
     try {
       final db = await database;
       return await db.query(
         'users',
         where: 'role = ?',
-        whereArgs: ['Ученик'],
+        whereArgs: ['Оқушы'],
         orderBy: 'username ASC',
       );
     } catch (e) {
-      print('Ошибка получения учеников: $e');
+      print('Оқушыларды алуда қате: $e');
       return [];
     }
   }
 
-  // Проверить существует ли пользователь
+  // Пайдаланушы болса, тексеру
   Future<bool> userExists(String username) async {
     final db = await database;
     final result = await db.query(
@@ -140,13 +140,13 @@ class DatabaseHelper {
     return result.isNotEmpty;
   }
 
-  // Вставить пользователя
+  // Пайдаланушы енгізу
   Future<int> insertUser(Map<String, dynamic> user) async {
     final db = await database;
     return await db.insert('users', user);
   }
 
-  // Добавить задание
+  // Тапсырма қосу
   Future<int> addTask({
     required String teacher,
     required String student,
@@ -164,12 +164,12 @@ class DatabaseHelper {
         'filePath': filePath,
       });
     } catch (e) {
-      print('Ошибка добавления задания: $e');
+      print('Тапсырма қосуда қате: $e');
       return -1;
     }
   }
 
-  // Получить задания ученика
+  // Оқушының тапсырмаларын алу
   Future<List<Map<String, dynamic>>> getStudentTasks(String student) async {
     try {
       final db = await database;
@@ -180,12 +180,12 @@ class DatabaseHelper {
         orderBy: 'createdAt DESC',
       );
     } catch (e) {
-      print('Ошибка получения заданий: $e');
+      print('Тапсырмаларды алуда қате: $e');
       return [];
     }
   }
 
-  // Получить задания учителя
+  // Мұғалімнің тапсырмаларын алу
   Future<List<Map<String, dynamic>>> getTeacherTasks(String teacher) async {
     try {
       final db = await database;
@@ -196,12 +196,12 @@ class DatabaseHelper {
         orderBy: 'createdAt DESC',
       );
     } catch (e) {
-      print('Ошибка получения заданий: $e');
+      print('Тапсырмаларды алуда қате: $e');
       return [];
     }
   }
 
-  // Удалить задание
+  // Тапсырманы жою
   Future<int> deleteTask(int id) async {
     try {
       final db = await database;
@@ -211,7 +211,7 @@ class DatabaseHelper {
         whereArgs: [id],
       );
     } catch (e) {
-      print('Ошибка удаления задания: $e');
+      print('Тапсырманы жойуда қате: $e');
       return -1;
     }
   }

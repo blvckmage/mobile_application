@@ -10,6 +10,7 @@ import 'theory_page.dart';
 import 'tests_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -72,7 +73,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
             children: [
               CircularProgressIndicator(),
               SizedBox(height: 20),
-              Text('Загрузка...'),
+              Text('Жүктелуде...'),
             ],
           ),
         ),

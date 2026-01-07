@@ -10,9 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _username = 'Гость';
+  String _username = 'Қонақ';
   String _email = 'example@mail.com';
-  String _role = 'Ученик';
+  String _role = 'Оқушы';
   int _selectedIndex = 0;
   final PageController _pageController = PageController();
   List<Map<String, dynamic>> _students = [];
@@ -32,12 +32,12 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadUserData() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _username = prefs.getString('username') ?? 'Гость';
+      _username = prefs.getString('username') ?? 'Қонақ';
       _email = prefs.getString('email') ?? 'example@mail.com';
-      _role = prefs.getString('role') ?? 'Ученик';
+      _role = prefs.getString('role') ?? 'Оқушы';
     });
 
-    if (_role == 'Учитель') {
+    if (_role == 'Мұғалім') {
       await _loadStudents();
     }
   }
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Добро пожаловать,',
+                            'Қош келдіңіз,',
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                           Text(
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Center(
                   child: Text(
-                    'Задания',
+                    'Тапсырмалар',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -164,8 +164,8 @@ class _HomePageState extends State<HomePage> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Главная'),
-            BottomNavigationBarItem(icon: Icon(Icons.task), label: 'Задания'),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Басты бет'),
+            BottomNavigationBarItem(icon: Icon(Icons.task), label: 'Тапсырмалар'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профиль'),
           ],
         ),
@@ -179,15 +179,15 @@ class _HomePageState extends State<HomePage> {
         children: [
           const SizedBox(height: 20),
 
-          // Показываем список учеников для учителя
-          if (_role == 'Учитель') ...[
+          // Мұғалім үшін оқушылар тізімін көрсетеміз
+          if (_role == 'Мұғалім') ...[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Мои ученики',
+                    'Менің оқушыларым',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   TextButton(
@@ -197,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                         Icon(Icons.refresh, size: 18, color: Color(0xFF4A90E2)),
                         SizedBox(width: 4),
                         Text(
-                          'Обновить',
+                          'Жаңарту',
                           style: TextStyle(color: Color(0xFF4A90E2)),
                         ),
                       ],
@@ -217,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Center(
                   child: Text(
-                    'Нет зарегистрированных учеников',
+                    'Тіркелген оқушылар жоқ',
                     style: TextStyle(color: Colors.grey, fontSize: 14),
                   ),
                 ),
@@ -243,7 +243,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(16.0),
             child: TextField(
               decoration: InputDecoration(
-                hintText: 'Поиск по физике...',
+                hintText: 'Физика бойынша іздеңіз...',
                 prefixIcon: Icon(Icons.search, color: Color(0xFF4A90E2)),
                 filled: true,
                 fillColor: Colors.grey[100],
@@ -261,13 +261,13 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Категории',
+                  'Категориялар',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    'Показать все',
+                    'Барлығын көру',
                     style: TextStyle(color: Color(0xFF4A90E2)),
                   ),
                 ),
@@ -281,16 +281,16 @@ class _HomePageState extends State<HomePage> {
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
               children: [
-                _buildCategoryCard('Материалы', Icons.book, onTap: () {
+                _buildCategoryCard('Материалдар', Icons.book, onTap: () {
                   Navigator.pushNamed(context, '/materials');
                 }),
-                _buildCategoryCard('Задания', Icons.quiz, onTap: () {
+                _buildCategoryCard('Тапсырмалар', Icons.quiz, onTap: () {
                   Navigator.pushNamed(context, '/theory');
                 }),
                 _buildCategoryCard('Калькулятор', Icons.calculate, onTap: () {
                   Navigator.pushNamed(context, '/calculator');
                 }),
-                _buildCategoryCard('Тесты', Icons.assignment, onTap: () {
+                _buildCategoryCard('Тесттер', Icons.assignment, onTap: () {
                   Navigator.pushNamed(context, '/tests');
                 }),
               ],

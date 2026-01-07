@@ -8,38 +8,38 @@ class CalculatorPage extends StatefulWidget {
 class _CalculatorPageState extends State<CalculatorPage> {
   String _selectedFormula = 'Q = c·m·ΔT';
   final Map<String, String> _formulas = {
-    'Q = c·m·ΔT': 'Количество теплоты (найти Q)',
-    'c = Q / (m·ΔT)': 'Удельная теплоёмкость (найти c)',
-    'm = Q / (c·ΔT)': 'Масса (найти m)',
-    'Q = q·m': 'Количество теплоты сгорания (найти Q)',
-    'A = Q = c·m·ΔT': 'Работа/Энергия (найти A)',
+    'Q = c·m·ΔT': 'Жылу мөлшері (Q табу)',
+    'c = Q / (m·ΔT)': 'Өзгешелік жылуыңмдылығы (c табу)',
+    'm = Q / (c·ΔT)': 'Масса (m табу)',
+    'Q = q·m': 'Жану жылусы (Q табу)',
+    'A = Q = c·m·ΔT': 'Жұмыс/Энергия (A табу)',
   };
 
   final Map<String, Map<String, dynamic>> _calculators = {
     'Q = c·m·ΔT': {
       'inputs': ['c (Дж/кг·℃)', 'm (кг)', 't₁ (℃)', 't₂ (℃)'],
       'useDeltaT': false,
-      'description': 'Для расчета количества теплоты:\nc - удельная теплоёмкость\nm - масса\nt₁ - начальная температура\nt₂ - конечная температура',
+      'description': 'Жылу мөлшерін есептеу үшін:\nc - өзгешелік жылу сыйымдарлығы\nm - масса\nt₁ - бастапқы температура\nt₂ - соңғы температура',
     },
     'c = Q / (m·ΔT)': {
       'inputs': ['Q (Дж)', 'm (кг)', 't₁ (℃)', 't₂ (℃)'],
       'useDeltaT': false,
-      'description': 'Для расчета удельной теплоёмкости:\nQ - количество теплоты\nm - масса\nt₁ - начальная температура\nt₂ - конечная температура',
+      'description': 'Өзгешелік жылу сыйымдарлығын есептеу үшін:\nQ - жылу мөлшері\nm - масса\nt₁ - бастапқы температура\nt₂ - соңғы температура',
     },
     'm = Q / (c·ΔT)': {
       'inputs': ['Q (Дж)', 'c (Дж/кг·℃)', 't₁ (℃)', 't₂ (℃)'],
       'useDeltaT': false,
-      'description': 'Для расчета массы:\nQ - количество теплоты\nc - удельная теплоёмкость\nt₁ - начальная температура\nt₂ - конечная температура',
+      'description': 'Массаны есептеу үшін:\nQ - жылу мөлшері\nc - өзгешелік жылу сыйымдарлығы\nt₁ - бастапқы температура\nt₂ - соңғы температура',
     },
     'Q = q·m': {
       'inputs': ['q (Дж/кг)', 'm (кг)'],
       'useDeltaT': true,
-      'description': 'Для расчета теплоты сгорания:\nq - удельная теплота сгорания\nm - масса топлива',
+      'description': 'Жану жылусын есептеу үшін:\nq - өзгешелік жану жылусы\nm - отын массасы',
     },
     'A = Q = c·m·ΔT': {
       'inputs': ['c (Дж/кг·℃)', 'm (кг)', 't₁ (℃)', 't₂ (℃)'],
       'useDeltaT': false,
-      'description': 'Для расчета работы/энергии:\nc - удельная теплоёмкость\nm - масса\nt₁ - начальная температура\nt₂ - конечная температура',
+      'description': 'Жұмысты/энергияны есептеу үшін:\nc - өзгешелік жылу сыйымдарлығы\nm - масса\nt₁ - бастапқы температура\nt₂ - соңғы температура',
     },
   };
 
@@ -114,7 +114,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
       }
     } catch (e) {
       setState(() {
-        _result = 'Ошибка! Заполните все поля корректными числами';
+        _result = 'Қате! Барлық өрістерді дұрыс сандарымен толтырыңыз';
       });
     }
   }
@@ -142,7 +142,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Физический калькулятор', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: Text('Физикалық калькулятор', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Color(0xFF4A90E2),
         elevation: 0,
       ),
@@ -167,7 +167,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Выберите формулу:',
+                        'Формуланы таңдаңыз:',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 12),
@@ -238,7 +238,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Введите значения:',
+                        'Мәндерді енгізіңіз:',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 12),
@@ -250,7 +250,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                             keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
                             decoration: InputDecoration(
                               labelText: input,
-                              hintText: 'Введите значение',
+                              hintText: 'Мәнді енгізіңіз',
                               prefixIcon: Icon(Icons.calculate, color: Color(0xFF4A90E2)),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -272,7 +272,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                             child: ElevatedButton.icon(
                               onPressed: _calculate,
                               icon: Icon(Icons.calculate),
-                              label: Text('Рассчитать'),
+                              label: Text('Есептеу'),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xFF4A90E2),
                                 foregroundColor: Colors.white,
@@ -287,7 +287,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           ElevatedButton.icon(
                             onPressed: _clearAll,
                             icon: Icon(Icons.clear),
-                            label: Text('Очистить'),
+                            label: Text('Тазалау'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red,
                               foregroundColor: Colors.white,
@@ -323,7 +323,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Результат:',
+                          'Нәтиже:',
                           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
                         ),
                         SizedBox(height: 8),
